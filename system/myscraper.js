@@ -20,9 +20,9 @@ module.exports = class Scraper {
             let course_link = []
             let course_image = []
             
-            $('.layout_786344 .usg_post_title_1').each((i, e) => course_title.push($(e).text().trim()))
-            $('.w-post-elm.post_image.has_height img').each((i, e) => course_image.push($(e).attr('src')))
-            $('.layout_786344 .usg_post_title_1 a').each((i, e) => course_link.push($(e).attr('href')))
+          await   $('.layout_786344 .usg_post_title_1').each((i, e) => course_title.push($(e).text().trim()))
+           await $('.w-post-elm.post_image.has_height img').each((i, e) => course_image.push($(e).attr('src')))
+           await $('.layout_786344 .usg_post_title_1 a').each((i, e) => course_link.push($(e).attr('href')))
  
             resolve({
                creator: global.creator,
