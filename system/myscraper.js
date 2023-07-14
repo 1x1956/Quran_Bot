@@ -7,6 +7,160 @@ global.creator = `@wox_bella`
 
 module.exports = class Scraper {
    
+ /*
+   ============================[ UDEMY.com ]============================
+   */
+
+   udemy(q) {
+      return new Promise(async (resolve, reject) => {
+         try {
+            let html = await (await axios.get('https://downloadly.ir/?s=udemy+'+ q +'&post_type=post')).data
+            let $ = cheerio.load(html)
+            let course_title = []
+            let course_link = []
+            let course_image = []
+            
+            $('.layout_786344 .usg_post_title_1').each((i, e) => course_title.push($(e).text().trim()))
+            $('.w-post-elm.post_image.has_height img').each((i, e) => course_image.push($(e).attr('src')))
+            $('.layout_786344 .usg_post_title_1 a').each((i, e) => course_link.push($(e).attr('href')))
+ 
+            resolve({
+               creator: global.creator,
+               status: true,
+               data: {
+                  
+                  course_title : course_title ,
+                  course_image : course_image,
+                  course_link : course_link
+                 
+               }
+            })
+         } catch (e) {
+            console.log(e)
+            resolve({
+               creator: global.creator,
+               status: false
+            })
+         }
+      })
+   }  
+
+/*
+   ============================[ UDEMY.com ]============================
+   */
+
+   udemy2(q) {
+      return new Promise(async (resolve, reject) => {
+         try {
+            let html = await (await axios.get(q)).data
+            let $ = cheerio.load(html)
+            let download_links = []
+            let course_image = []
+            
+            $('.w-post-elm p a').each((i, e) => download_links.push($(e).attr('href')))
+            $('.bloginnernew img').each((i, e) => course_image.push($(e).attr('src')))
+ 
+            resolve({
+               creator: global.creator,
+               status: true,
+               data: {
+                  
+                  download_links : download_links ,
+                  course_image : course_image,
+                 
+               }
+            })
+         } catch (e) {
+            console.log(e)
+            resolve({
+               creator: global.creator,
+               status: false
+            })
+         }
+      })
+   }  
+
+
+ /*
+   ============================[ KOOORA.com ]============================
+   */
+
+   koora() {
+      return new Promise(async (resolve, reject) => {
+         try {
+            let html = await (await axios.get('https://www.kooora.com/')).data
+            let $ = cheerio.load(html)
+            let left_team = []
+            let right_team = []
+            //let time = []
+            
+            $('.matchRow div:nth-child(1) .teamName').each((i, e) => right_team.push($(e).text().trim()))
+            //$('.matchRow div:nth-child(2)').each((i, e) => time.push($(e).text().trim()))
+            $('.matchRow .liveTeam .teamName').each((i, e) => left_team.push($(e).text()))
+            
+            // $('audio source').each((i, e) => link.push($(e).attr('src')))
+ 
+            resolve({
+               creator: global.creator,
+               status: true,
+               data: {
+                  
+                  right_team : right_team ,
+                  left_team : left_team,
+                 // time : time,
+               }
+            })
+         } catch (e) {
+            console.log(e)
+            resolve({
+               creator: global.creator,
+               status: false
+            })
+         }
+      })
+   }  
+
+
+   /*
+   ============================[ Botola Pro ]============================
+   */
+
+   foot() {
+      return new Promise(async (resolve, reject) => {
+         try {
+            let html = await (await axios.get('https://arryadia.snrt.ma/')).data
+            let $ = cheerio.load(html)
+            let team_home = []
+            let team_away = []
+            let vs_score = []
+            let date = $('.djl_theme_bootstrap.mod_djl_schedule table td.game_day').text().trim()
+            $('.djl_theme_bootstrap.mod_djl_schedule table td.team_home').each((i, e) => team_home.push($(e).text().trim()))
+            $('.djl_theme_bootstrap.mod_djl_schedule table td.team_away').each((i, e) => team_away.push($(e).text().trim()))
+            $('.djl_theme_bootstrap.mod_djl_schedule table td.vs_score').each((i, e) => vs_score.push($(e).text().trim()))
+            
+            // $('audio source').each((i, e) => link.push($(e).attr('src')))
+ 
+            resolve({
+               creator: global.creator,
+               status: true,
+               data: {
+                  
+                  team_home: team_home,
+                  team_away: team_away,
+                  vs_score: vs_score,
+                  date : date,
+               }
+            })
+         } catch (e) {
+            console.log(e)
+            resolve({
+               creator: global.creator,
+               status: false
+            })
+         }
+      })
+   }  
+
    /*
    ============================[ QURAN DOWNLOADER ]============================
    */
