@@ -11,6 +11,7 @@ exports.run = {
         try {
           if(command === 'udemy') {
                let json = await myscraper.udemy(text)
+                client.reply(m.chat,'wait ') 
                for (var i = 0 ; i < json.data.course_link.length ; i++) {
 
                     const course_desciption = ` \n
